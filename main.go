@@ -139,7 +139,7 @@ func stableBinaryStarSystem() []*internal.Body {
 	return []*internal.Body{body1, body2}
 }
 
-func stableBinaryStarSystem2() []*internal.Body {
+func stableQuadrupleStarSystem() []*internal.Body {
 	body1 := internal.NewBody(
 		algebraic.NewVector(3, 500, 300, 0),
 		SunMass,
