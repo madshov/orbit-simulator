@@ -11,16 +11,16 @@ const (
 )
 
 type Body struct {
-	Position *algebraic.Vector
-	Velocity *algebraic.Vector
+	Position algebraic.Vector
+	Velocity algebraic.Vector
 	Mass     float64
 	Radius   float64
 
 	Color color.Color
 }
 
-func NewBody(pos *algebraic.Vector, mass, radius float64, color color.Color) *Body {
-	vel, _ := algebraic.NewZeroVector(3)
+func NewBody(pos algebraic.Vector, mass, radius float64, color color.Color) *Body {
+	vel := algebraic.NewZeroVector(3)
 
 	return &Body{
 		Position: pos,
@@ -31,10 +31,10 @@ func NewBody(pos *algebraic.Vector, mass, radius float64, color color.Color) *Bo
 	}
 }
 
-func (b *Body) AddToVelocity(vel *algebraic.Vector) {
-	b.Velocity = b.Velocity.Add(vel)
+func (b *Body) AddToVelocity(vel algebraic.Vector) {
+	b.Velocity.Add(vel)
 }
 
-func (b *Body) AddToPosition(pos *algebraic.Vector) {
-	b.Position = b.Position.Add(pos)
+func (b *Body) AddToPosition(pos algebraic.Vector) {
+	b.Position.Add(pos)
 }

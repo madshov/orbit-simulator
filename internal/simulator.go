@@ -23,11 +23,11 @@ func NewSimulator(bodies []*Body) *Simulator {
 	}
 }
 
-func (s *Simulator) CalcForceVectors() []*algebraic.Vector {
+func (s *Simulator) CalcForceVectors() []algebraic.Vector {
 	numOfBodies := len(s.bodies)
 
-	forces := make([][]*algebraic.Vector, numOfBodies)
-	dists := make([][]*algebraic.Vector, numOfBodies)
+	forces := make([][]algebraic.Vector, numOfBodies)
+	dists := make([][]algebraic.Vector, numOfBodies)
 
 	for i := 0; i < numOfBodies; i++ {
 		for j := 0; j < numOfBodies; j++ {
@@ -51,15 +51,16 @@ func (s *Simulator) CalcForceVectors() []*algebraic.Vector {
 				nnv := nv.Scale(force)
 				forces[i] = append(forces[i], nnv)
 			} else {
-				nv, _ := algebraic.NewZeroVector(3)
+				nv := algebraic.NewZeroVector(3)
 				forces[i] = append(forces[i], nv)
 			}
 		}
 	}
 
-	var netForce []*algebraic.Vector
+	var netForce []algebraic.Vector
 	for _, f := range forces {
-		netForce = append(netForce, f[0].Add(f[1]))
+		f[0].Add(f[1])
+		netForce = append(netForce, f[0])
 	}
 
 	return netForce
@@ -77,7 +78,7 @@ func (s *Simulator) DrawBodies(screen *ebiten.Image) {
 	}
 }
 
-func (s *Simulator) UpdateBodies(netForce []*algebraic.Vector) {
+func (s *Simulator) UpdateBodies(netForce []algebraic.Vector) {
 	for k, body := range s.bodies {
 		vel := netForce[k].Scale(1 / body.Mass * timeDelay)
 		body.AddToVelocity(vel)

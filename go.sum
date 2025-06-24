@@ -12,6 +12,8 @@ github.com/madshov/data-structures v0.0.0-20241019135258-06e795dfe173 h1:ESVq+wE
 github.com/madshov/data-structures v0.0.0-20241019135258-06e795dfe173/go.mod h1:zOAYgyzMudK2Io5hhCK4eVqCkZC1SeRl8rkDeX5gAR8=
 github.com/madshov/data-structures v0.0.0-20241026180924-269c3c6186e4 h1:806tlEZM1VDG6eUkKaJZ5z5KzdEVxTLBgo/9CivOR6s=
 github.com/madshov/data-structures v0.0.0-20241026180924-269c3c6186e4/go.mod h1:zOAYgyzMudK2Io5hhCK4eVqCkZC1SeRl8rkDeX5gAR8=
+github.com/madshov/data-structures v0.0.0-20250426161945-fe489e7f8f5a h1:Q2QUk0F1yhPonGM2ZtOGg6cImJfclbX7mr9oyaV/Z9k=
+github.com/madshov/data-structures v0.0.0-20250426161945-fe489e7f8f5a/go.mod h1:+xIBGgnzZFj3XPebOIaO6HvVFfR/88ZPQqGUtibBb3Y=
 golang.org/x/image v0.21.0 h1:c5qV36ajHpdj4Qi0GnE0jUc/yuo33OLFaa0d+crTD5s=
 golang.org/x/image v0.21.0/go.mod h1:vUbsLavqK/W303ZroQQVKQ+Af3Yl6Uz1Ppu5J/cLz78=
 golang.org/x/sync v0.8.0 h1:3NFvSEYkUoMifnESzZl15y791HH1qU2xm6eCJU5ZPXQ=

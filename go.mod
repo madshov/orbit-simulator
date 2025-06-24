@@ -4,7 +4,7 @@ go 1.22.2
 
 require (
 	github.com/hajimehoshi/ebiten/v2 v2.8.1
-	github.com/madshov/data-structures v0.0.0-20241026180924-269c3c6186e4
+	github.com/madshov/data-structures v0.0.0-20250426161945-fe489e7f8f5a
 	golang.org/x/image v0.21.0
 )
 
