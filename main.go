@@ -1,8 +1,8 @@
 package main
 
 import (
+	"fmt"
 	"log"
-	"math"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/madshov/data-structures/algebraic"
@@ -15,8 +15,10 @@ const (
 	ScreenWidth  = 1000
 	ScreenHeight = 800
 
-	SunMass    = 6e15
-	PlanetMass = 6e9
+	StarMass     = 6e15
+	PlanetMass   = 6e9
+	StarRadius   = 15
+	PlanetRadius = 5
 )
 
 var (
@@ -56,15 +58,15 @@ func NewSimulation(simulator *internal.Simulator) *Simulation {
 func stableCircularOrbit() []*internal.Body {
 	body1 := internal.NewBody(
 		algebraic.NewVector(3, ScreenWidth/2, ScreenHeight/2, 0),
-		SunMass,
-		15,
+		StarMass,
+		StarRadius,
 		colornames.White,
 	)
 
 	body2 := internal.NewBody(
 		algebraic.NewVector(3, 500, 600, 0),
 		PlanetMass,
-		5,
+		PlanetRadius,
 		colornames.Blue,
 	)
 	body2.AddToVelocity(algebraic.NewVector(3, 200, 0, 0))
@@ -75,15 +77,15 @@ func stableCircularOrbit() []*internal.Body {
 func stableEllipticalOrbit() []*internal.Body {
 	body1 := internal.NewBody(
 		algebraic.NewVector(3, ScreenWidth/2, ScreenHeight/2, 0),
-		SunMass,
-		15,
+		StarMass,
+		StarRadius,
 		colornames.White,
 	)
 
 	body2 := internal.NewBody(
 		algebraic.NewVector(3, ScreenWidth/2, 550, 0),
 		PlanetMass,
-		5,
+		PlanetRadius,
 		colornames.Blue,
 	)
 	body2.AddToVelocity(algebraic.NewVector(3, 250, 100, 0))
@@ -94,7 +96,7 @@ func stableEllipticalOrbit() []*internal.Body {
 func erraticOrbit() []*internal.Body {
 	body1 := internal.NewBody(
 		algebraic.NewVector(3, 500, 300, 0),
-		6*math.Pow(10, 15),
+		StarMass,
 		10,
 		colornames.White,
 	)
@@ -102,7 +104,7 @@ func erraticOrbit() []*internal.Body {
 
 	body2 := internal.NewBody(
 		algebraic.NewVector(3, 600, 200, 0),
-		6*math.Pow(10, 15),
+		StarMass,
 		10,
 		colornames.White,
 	)
@@ -110,7 +112,7 @@ func erraticOrbit() []*internal.Body {
 
 	body3 := internal.NewBody(
 		algebraic.NewVector(3, 300, 500, 0),
-		6*math.Pow(10, 15),
+		StarMass,
 		10,
 		colornames.White,
 	)
@@ -119,10 +121,10 @@ func erraticOrbit() []*internal.Body {
 	return []*internal.Body{body1, body2, body3}
 }
 
-func stableBinaryStarSystem() []*internal.Body {
+func stableBinaryStarOrbit() []*internal.Body {
 	body1 := internal.NewBody(
 		algebraic.NewVector(3, 500, 350, 0),
-		6*math.Pow(10, 15),
+		StarMass,
 		10,
 		colornames.White,
 	)
@@ -130,7 +132,7 @@ func stableBinaryStarSystem() []*internal.Body {
 
 	body2 := internal.NewBody(
 		algebraic.NewVector(3, 500, 450, 0),
-		6*math.Pow(10, 15),
+		StarMass,
 		10,
 		colornames.White,
 	)
@@ -139,10 +141,10 @@ func stableBinaryStarSystem() []*internal.Body {
 	return []*internal.Body{body1, body2}
 }
 
-func stableQuadrupleStarSystem() []*internal.Body {
+func stableQuadrupleStarOrbit() []*internal.Body {
 	body1 := internal.NewBody(
 		algebraic.NewVector(3, 500, 300, 0),
-		SunMass,
+		StarMass,
 		10,
 		colornames.White,
 	)
@@ -150,7 +152,7 @@ func stableQuadrupleStarSystem() []*internal.Body {
 
 	body2 := internal.NewBody(
 		algebraic.NewVector(3, 400, 400, 0),
-		SunMass,
+		StarMass,
 		10,
 		colornames.White,
 	)
@@ -158,7 +160,7 @@ func stableQuadrupleStarSystem() []*internal.Body {
 
 	body3 := internal.NewBody(
 		algebraic.NewVector(3, 500, 500, 0),
-		SunMass,
+		StarMass,
 		10,
 		colornames.White,
 	)
@@ -166,7 +168,7 @@ func stableQuadrupleStarSystem() []*internal.Body {
 
 	body4 := internal.NewBody(
 		algebraic.NewVector(3, 600, 400, 0),
-		SunMass,
+		StarMass,
 		10,
 		colornames.White,
 	)
@@ -176,7 +178,34 @@ func stableQuadrupleStarSystem() []*internal.Body {
 }
 
 func main() {
-	scene := stableEllipticalOrbit()
+	fmt.Print(`Please enter desired orbit type:
+1) Stable circular orbit
+2) Stable elliptical orbit
+3) Erratic orbit
+4) Stable binary star orbit
+5) Stable quadruple star orbit
+`)
+
+	var (
+		inputScene int
+		scene      []*internal.Body
+	)
+
+	fmt.Scanln(&inputScene)
+
+	switch inputScene {
+	case 5:
+		scene = stableQuadrupleStarOrbit()
+	case 4:
+		scene = stableBinaryStarOrbit()
+	case 3:
+		scene = erraticOrbit()
+	case 2:
+		scene = stableEllipticalOrbit()
+	default:
+		scene = stableCircularOrbit()
+	}
+
 	simulator := internal.NewSimulator(scene)
 
 	sim := NewSimulation(simulator)
